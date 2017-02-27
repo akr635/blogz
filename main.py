@@ -20,8 +20,8 @@ class BlogHandler(webapp2.RequestHandler):
             The user parameter will be a User object.
         """
 
-        # TODO - filter the query so that only posts by the given user
-        return None
+        user_posts_query = Post.all().filter("author", user)
+        return user_posts_query.fetch(limit = limit, offset = offset)
 
     def get_user_by_name(self, username):
         """ Get a user object from the db, based on their username """
@@ -304,4 +304,5 @@ app = webapp2.WSGIApplication([
 # A list of paths that a user must be logged in to access
 auth_paths = [
     '/blog/newpost'
+    '/logout'
 ]
